@@ -1,0 +1,426 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #101010;
+  color: #eeeeee;
+  font-family: Arial, sans-serif;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+header {
+  padding: 18px 5%;
+  background: #1b1b1b;
+  border-bottom: 1px solid #574626;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+header h2 {
+  color: #d4af65;
+  margin: 0;
+  font-size: 22px;
+}
+
+header span {
+  color: #999;
+  font-size: 13px;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.editor,
+.preview-section {
+  background: #1b1b1b;
+  border: 1px solid #383838;
+  border-radius: 18px;
+  padding: 25px;
+  min-width: 0;
+}
+
+h1 {
+  font-size: 25px;
+  margin: 15px 0 25px;
+}
+
+h3 {
+  color: #d4af65;
+  margin: 28px 0 15px;
+}
+
+h3 small {
+  color: #999;
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.back-to-admin {
+  display: inline-block;
+  color: #d4af65;
+  text-decoration: none;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.back-to-admin:hover {
+  text-decoration: underline;
+}
+
+label {
+  display: block;
+  margin: 15px 0;
+  color: #ccc;
+  font-size: 14px;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 8px;
+  padding: 13px;
+  background: #292929;
+  border: 1px solid #555;
+  border-radius: 9px;
+  color: white;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #d4af65;
+}
+
+input[type="color"] {
+  height: 48px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.colors {
+  display: flex;
+  gap: 20px;
+}
+
+.colors label {
+  flex: 1;
+  min-width: 0;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 9px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+
+.primary {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  background: #d4af65;
+  color: #111;
+  border: none;
+  font-weight: bold;
+}
+
+.primary:hover {
+  background: #e5c583;
+}
+
+.outline {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: #d4af65;
+  border: 1px dashed #d4af65;
+}
+
+.outline:hover {
+  background: #302819;
+}
+
+.outline:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.image-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.upload-card {
+  padding: 16px;
+  background: #242424;
+  border: 1px solid #444;
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.upload-card label {
+  color: #d4af65;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.upload-card label i {
+  margin-right: 6px;
+}
+
+.upload-card input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  color: #ccc;
+  background: #191919;
+  border: 1px solid #444;
+}
+
+.upload-card input[type="file"]::file-selector-button {
+  background: #d4af65;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.remove-image-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px;
+  background: transparent;
+  border: 1px solid #744040;
+  color: #ff9999;
+}
+
+.remove-image-btn:hover {
+  background: #3a2424;
+}
+
+.upload-note {
+  color: #999;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.link-row {
+  padding: 15px;
+  margin-bottom: 12px;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 12px;
+}
+
+.link-row select,
+.link-row input {
+  margin-top: 10px;
+}
+
+.link-row button {
+  background: #442525;
+  color: white;
+  border: none;
+  padding: 9px 13px;
+  margin-top: 12px;
+}
+
+.link-row button:hover {
+  background: #663333;
+}
+
+.preview-section h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.preview {
+  background: #171717;
+  text-align: center;
+  border-radius: 18px;
+  overflow: hidden;
+  padding-bottom: 25px;
+}
+
+.cover {
+  height: 100px;
+  background: linear-gradient(135deg, #171717, #d4af65);
+}
+
+/* Sirket gorseli: kapagin altinda tam genislik */
+
+.company-banner {
+  width: 100%;
+  height: 190px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #242424;
+}
+
+#previewCompanyLogo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Profil fotografi sirket gorselinin altina tasar */
+
+.avatar {
+  width: 85px;
+  height: 85px;
+  margin: -42px auto 15px;
+  border-radius: 50%;
+  border: 3px solid #d4af65;
+  background: #292929;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+#previewProfilePhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.preview h2 {
+  margin: 10px 0;
+  padding: 0 15px;
+  font-size: 23px;
+  overflow-wrap: anywhere;
+}
+
+.preview p {
+  color: #bbb;
+  margin: 10px 0;
+  padding: 0 15px;
+  overflow-wrap: anywhere;
+}
+
+.preview-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 20px;
+  padding: 14px;
+  border: 1px solid #d4af65;
+  border-radius: 10px;
+  color: #eee;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.contact {
+  margin: 22px 20px 0;
+  padding: 15px;
+  background: #d4af65;
+  color: #111;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+#status {
+  color: #d4af65;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 15px;
+  min-height: 20px;
+}
+
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 500px) {
+  header {
+    padding: 16px 20px;
+  }
+
+  header h2 {
+    font-size: 18px;
+  }
+
+  header span {
+    font-size: 11px;
+  }
+
+  main {
+    padding: 20px 12px;
+    gap: 20px;
+  }
+
+  .editor,
+  .preview-section {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .image-upload-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .colors {
+    gap: 12px;
+  }
+
+  .company-banner {
+    height: 160px;
+  }
+
+  .preview h2 {
+    font-size: 21px;
+  }
+
+  .preview-link {
+    margin: 10px 12px;
+  }
+}
+/* Sarı kapak ile şirket görseli arasındaki boşluk */
+.company-banner {
+  margin-top: 20px;
+}

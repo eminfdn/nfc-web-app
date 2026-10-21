@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dijital Kartvizit</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/style.css?v=9" />
+    <script src="/script.js?v=9" defer></script>
+  </head>
+
+  <body>
+    <main class="card" id="card" hidden>
+      <div class="cover" id="cover"></div>
+
+      <div class="company-banner" id="companyLogoContainer" hidden>
+        <img id="companyLogo" alt="Şirket görseli" />
+      </div>
+
+      <section class="profile">
+        <div class="avatar" id="avatar">
+          <img id="profilePhoto" alt="Profil fotoğrafı" hidden />
+
+          <span id="avatarInitials"></span>
+        </div>
+
+        <h1 id="customerName"></h1>
+
+        <p class="job" id="customerJob"></p>
+
+        <p class="company" id="customerCompany"></p>
+
+        <p class="bio" id="customerBio"></p>
+      </section>
+
+      <div class="links" id="links"></div>
+
+      <div class="actions">
+        <button id="saveContact" class="save-button" type="button">
+          <i class="fa-solid fa-address-card"></i>
+          Rehbere Kaydet
+        </button>
+
+        <button id="shareCard" class="share-button" type="button">
+          <i class="fa-solid fa-share-nodes"></i>
+          Kartviziti Paylaş
+        </button>
+      </div>
+
+      <p id="actionStatus" class="action-status" role="status"></p>
+
+      <a href="/giris" class="manage-link">
+        <i class="fa-solid fa-gear"></i>
+        Kartvizitimi Yönet
+      </a>
+
+      <footer>Dijital Kartvizit</footer>
+    </main>
+
+    <section class="error-page" id="errorPage">
+      <i class="fa-solid fa-address-card"></i>
+
+      <h1>Kartvizit Bulunamadı</h1>
+
+      <p id="errorMessage">Kartvizit yükleniyor...</p>
+    </section>
+  </body>
+</html>

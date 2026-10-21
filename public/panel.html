@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kartvizit Yönetim Paneli</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/panel.css?v=8" />
+    <script src="/panel.js?v=8" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h2>Kartvizit Yönetimi</h2>
+      <span>Kartvizit Paneli</span>
+    </header>
+
+    <main>
+      <section class="editor">
+        <a id="backToAdmin" href="/admin" class="back-to-admin" hidden>
+          ← Admin Paneline Dön
+        </a>
+
+        <h1>Kartvizitimi Düzenle</h1>
+
+        <h3>Profil Bilgileri</h3>
+
+        <label>
+          Ad Soyad
+          <input id="name" type="text" maxlength="120" autocomplete="name" />
+        </label>
+
+        <label>
+          Meslek
+          <input id="job" type="text" maxlength="120" />
+        </label>
+
+        <label>
+          Şirket
+          <input id="company" type="text" maxlength="120" />
+        </label>
+
+        <h3>Profil Fotoğrafı ve Şirket Görseli</h3>
+
+        <div class="image-upload-grid">
+          <div class="upload-card">
+            <label for="profilePhoto">
+              <i class="fa-solid fa-user"></i>
+              Profil Fotoğrafı
+            </label>
+
+            <input
+              type="file"
+              id="profilePhoto"
+              accept="image/png,image/jpeg,image/webp"
+            />
+
+            <button
+              type="button"
+              id="removeProfilePhoto"
+              class="remove-image-btn"
+            >
+              Fotoğrafı Kaldır
+            </button>
+          </div>
+
+          <div class="upload-card">
+            <label for="companyLogo">
+              <i class="fa-solid fa-building"></i>
+              Şirket Görseli
+            </label>
+
+            <input
+              type="file"
+              id="companyLogo"
+              accept="image/png,image/jpeg,image/webp"
+            />
+
+            <button
+              type="button"
+              id="removeCompanyLogo"
+              class="remove-image-btn"
+            >
+              Görseli Kaldır
+            </button>
+          </div>
+        </div>
+
+        <p class="upload-note">
+          PNG, JPG veya WebP yükleyebilirsin. Görseller otomatik küçültülür.
+          Şirket görseli kartvizitte geniş banner olarak görünür.
+        </p>
+
+        <h3>Tasarımım</h3>
+
+        <div class="colors">
+          <label>
+            Arka Plan
+            <input type="color" id="background" value="#171717" />
+          </label>
+
+          <label>
+            Vurgu Rengi
+            <input type="color" id="accent" value="#ffffff" disabled />
+          </label>
+        </div>
+
+        <p class="upload-note">
+          Vurgu rengi paketinize göre otomatik belirlenir. Standart paket beyaz,
+          Premium paket altın sarısı kullanır.
+        </p>
+
+        <h3>
+          Bağlantılarım
+          <small id="count">0/12</small>
+        </h3>
+
+        <div id="links"></div>
+
+        <button type="button" id="addLink" class="outline">
+          + Yeni Bağlantı Ekle
+        </button>
+
+        <button type="button" id="save" class="primary" disabled>
+          Değişiklikleri Kaydet
+        </button>
+
+        <p id="status" role="status"></p>
+      </section>
+
+      <section class="preview-section">
+        <h3>Canlı Önizleme</h3>
+
+        <div class="preview" id="preview">
+          <div class="cover" id="cover"></div>
+
+          <div class="company-banner" id="companyLogoContainer" hidden>
+            <img id="previewCompanyLogo" alt="Şirket görseli" />
+          </div>
+
+          <div class="avatar" id="previewAvatar">
+            <img id="previewProfilePhoto" alt="Profil fotoğrafı" hidden />
+
+            <span id="avatarInitials"></span>
+          </div>
+
+          <h2 id="previewName"></h2>
+          <p id="previewJob"></p>
+          <p id="previewCompany"></p>
+
+          <div id="previewLinks"></div>
+
+          <div class="contact">Rehbere Kaydet</div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

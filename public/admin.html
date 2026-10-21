@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NFC | Admin Paneli</title>
+    <link rel="stylesheet" href="/admin.css?v=4" />
+    <script src="/admin.js?v=4" defer></script>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">NFC<span>ADMIN</span></div>
+
+        <p class="side-label">YÖNETİM</p>
+
+        <nav>
+          <a href="#dashboard">◈ Genel Bakış</a>
+          <a href="#customers">♙ Müşteriler</a>
+          <a href="#new-customer">＋ Yeni Müşteri</a>
+        </nav>
+
+        <div class="sidebar-bottom">NFC Kartvizit Yönetimi</div>
+      </aside>
+
+      <main class="main">
+        <header>
+          <div>
+            <p class="eyebrow">YÖNETİM MERKEZİ</p>
+            <h1>Admin Paneli</h1>
+            <p class="muted">Müşterilerini ve kartvizitlerini yönet.</p>
+          </div>
+        </header>
+
+        <section id="dashboard" class="stats">
+          <div class="stat">
+            <p>Toplam Müşteri</p>
+            <strong id="totalCount">0</strong>
+          </div>
+
+          <div class="stat">
+            <p>Standart Paket</p>
+            <strong id="standardCount">0</strong>
+          </div>
+
+          <div class="stat">
+            <p>Premium Paket</p>
+            <strong id="premiumCount">0</strong>
+          </div>
+        </section>
+
+        <section id="new-customer" class="panel">
+          <div class="section-heading">
+            <div>
+              <h2 id="formTitle">Yeni Müşteri</h2>
+              <p class="muted">Müşteri bilgilerini ve paketini belirle.</p>
+            </div>
+          </div>
+
+          <form id="customerForm">
+            <div class="form-grid">
+              <label>
+                Ad Soyad
+                <input
+                  id="customerName"
+                  type="text"
+                  placeholder="Ad Soyad"
+                  maxlength="80"
+                  required
+                />
+              </label>
+
+              <label>
+                E-posta
+                <input
+                  id="customerEmail"
+                  type="email"
+                  placeholder="ornek@mail.com"
+                  required
+                />
+              </label>
+
+              <label>
+                Telefon
+                <input
+                  id="customerPhone"
+                  type="tel"
+                  placeholder="05XX XXX XX XX"
+                />
+              </label>
+
+              <label>
+                Kartvizit Adresi
+                <input
+                  id="customerSlug"
+                  type="text"
+                  placeholder="ad-soyad"
+                  pattern="[a-z0-9]+(-[a-z0-9]+)*"
+                  required
+                />
+              </label>
+            </div>
+
+            <label class="status-field">
+              <input type="checkbox" id="customerActive" checked />
+              Müşteri hesabı aktif
+            </label>
+
+            <h3>Paket Seçimi</h3>
+
+            <div class="packages">
+              <label class="package">
+                <input type="radio" name="plan" value="standard" checked />
+                <span>
+                  <b>Standart</b>
+                  <small>
+                    Beyaz-siyah tasarım. Yalnızca admin düzenleyebilir.
+                  </small>
+                </span>
+              </label>
+
+              <label class="package">
+                <input type="radio" name="plan" value="premium" />
+                <span>
+                  <b>Premium ★</b>
+                  <small>
+                    Altın sarısı-siyah tasarım. Müşteri kendi kartvizitini
+                    düzenleyebilir.
+                  </small>
+                </span>
+              </label>
+            </div>
+
+            <div id="passwordField" hidden>
+              <h3>Premium Hesap Bilgileri</h3>
+
+              <div class="form-grid">
+                <label>
+                  Müşteri Giriş Şifresi
+                  <input
+                    id="customerPassword"
+                    type="password"
+                    minlength="12"
+                    autocomplete="new-password"
+                    placeholder="En az 12 karakter"
+                  />
+                </label>
+              </div>
+
+              <p id="passwordHelp" class="muted"></p>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary" type="submit" id="saveCustomerBtn">
+                Müşteri Ekle
+              </button>
+
+              <button
+                class="secondary-btn"
+                type="button"
+                id="cancelEditBtn"
+                hidden
+              >
+                Düzenlemeyi İptal Et
+              </button>
+            </div>
+
+            <p id="formMessage" class="form-message" role="status"></p>
+          </form>
+        </section>
+
+        <section id="customers" class="panel">
+          <div class="section-heading">
+            <div>
+              <h2>Müşteriler</h2>
+              <p class="muted">Müşterilerini ara ve kartvizitlerini yönet.</p>
+            </div>
+          </div>
+
+          <div class="search-area">
+            <label for="customerSearch">Müşteri Ara</label>
+
+            <div class="search-field">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+
+              <input
+                type="search"
+                id="customerSearch"
+                placeholder="İsim, e-posta, telefon veya kartvizit adresi..."
+                autocomplete="off"
+              />
+
+              <button
+                type="button"
+                id="clearSearch"
+                class="clear-search"
+                hidden
+              >
+                Temizle
+              </button>
+            </div>
+
+            <p id="searchResultCount" class="muted" aria-live="polite"></p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Müşteri</th>
+                  <th>Paket</th>
+                  <th>Kartvizit Adresi</th>
+                  <th>İşlem</th>
+                </tr>
+              </thead>
+
+              <tbody id="customerTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <p class="footer-note">NFC Dijital Kartvizit Yönetim Sistemi</p>
+      </main>
+    </div>
+  </body>
+</html>

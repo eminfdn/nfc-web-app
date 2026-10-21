@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Giriş Yap | NFC Dijital Kartvizit</title>
+
+    <link rel="stylesheet" href="/style.css" />
+
+    <style>
+      .login-card {
+        width: calc(100% - 32px);
+        max-width: 420px;
+        margin: 60px auto;
+        padding: 35px 25px;
+        background: #171717;
+        border: 1px solid #65502b;
+        border-radius: 20px;
+        text-align: center;
+      }
+
+      .login-card h1 {
+        color: #d4af65;
+        margin-bottom: 10px;
+      }
+
+      .login-card p {
+        color: #aaa;
+        font-size: 14px;
+        margin-bottom: 30px;
+      }
+
+      .login-card label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+        color: #ddd;
+        font-size: 14px;
+      }
+
+      .login-card input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: #252525;
+        border: 1px solid #444;
+        border-radius: 10px;
+        color: white;
+        font-size: 15px;
+      }
+
+      .login-card button {
+        width: 100%;
+        padding: 16px;
+        background: #d4af65;
+        color: #171717;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .login-card button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+
+      .login-card a {
+        display: inline-block;
+        margin-top: 25px;
+        color: #d4af65;
+        font-size: 13px;
+        text-decoration: none;
+      }
+
+      .login-card .notice {
+        margin: 18px 0 0;
+        font-size: 13px;
+        color: #ccc;
+        min-height: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-card">
+      <h1>NFC Kartvizit Girişi</h1>
+
+      <p>Kartvizitini yönetmek için hesabına giriş yap.</p>
+
+      <form id="loginForm">
+        <label for="email">E-posta Adresi</label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="ornek@mail.com"
+          autocomplete="email"
+          required
+        />
+
+        <label for="password">Şifre</label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Şifrenizi girin"
+          autocomplete="current-password"
+          required
+        />
+
+        <button id="loginButton" type="submit">Giriş Yap</button>
+      </form>
+
+      <p id="loginMessage" class="notice" role="status"></p>
+
+      <a href="/">← Ana Sayfaya Dön</a>
+    </div>
+
+    <script>
+      "use strict";
+
+      const form = document.getElementById("loginForm");
+      const button = document.getElementById("loginButton");
+      const message = document.getElementById("loginMessage");
+
+      function redirectByRole(role) {
+        if (role === "admin") {
+          window.location.replace("/admin");
+          return true;
+        }
+
+        if (role === "premium") {
+          window.location.replace("/panel");
+          return true;
+        }
+
+        return false;
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        button.disabled = true;
+        message.textContent = "Giriş yapılıyor...";
+
+        const email = document.getElementById("email").value.trim();
+
+        const password = document.getElementById("password").value;
+
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          });
+
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            throw new Error(result.error || "Giriş başarısız.");
+          }
+
+          if (!redirectByRole(result.role)) {
+            throw new Error("Hesap yetkisi belirlenemedi.");
+          }
+        } catch (error) {
+          message.textContent = error.message;
+          button.disabled = false;
+        }
+      });
+
+      async function checkExistingSession() {
+        try {
+          const response = await fetch("/api/me", {
+            credentials: "same-origin",
+          });
+
+          if (!response.ok) return;
+
+          const result = await response.json();
+          redirectByRole(result.role);
+        } catch {
+          // Giriş formu kullanılmaya devam edebilir.
+        }
+      }
+
+      checkExistingSession();
+    </script>
+  </body>
+</html>
